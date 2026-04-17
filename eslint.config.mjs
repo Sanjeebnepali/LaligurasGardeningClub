@@ -13,6 +13,13 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
   ]),
+  {
+    rules: {
+      // All images are external Unsplash URLs with ?w=&q= params — already optimised.
+      // next/image requires known dimensions; wrapping every decorative img is unnecessary here.
+      "@next/next/no-img-element": "off",
+    },
+  },
 ]);
 
 export default eslintConfig;
