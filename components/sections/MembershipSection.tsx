@@ -7,50 +7,34 @@ import { Check, ArrowRight } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const TIERS = [
+const FEATURED_TIER = {
+  name: "Gardener",
+  price: "$30",
+  label: "per month",
+  features: [
+    "Everything in Seedling",
+    "Full botanical library",
+    "Monthly flora gazette",
+    "Early event access",
+    "10% nursery discount",
+    "Seed exchange access",
+  ],
+};
+
+const SIDE_TIERS = [
   {
     name: "Seedling",
     price: "Free",
-    label: "Start growing",
     accent: "var(--muted)",
-    bg: "var(--card)",
     border: "var(--border-s)",
-    popular: false,
     features: ["Monthly newsletter", "Event announcements", "Basic flower library", "Community forum"],
-  },
-  {
-    name: "Gardener",
-    price: "$30",
-    label: "per month",
-    accent: "var(--rose-light)",
-    bg: "var(--card)",
-    border: "var(--rose)",
-    popular: true,
-    features: [
-      "Everything in Seedling",
-      "Full botanical library",
-      "Monthly flora gazette",
-      "Early event access",
-      "10% nursery discount",
-      "Seed exchange access",
-    ],
   },
   {
     name: "Curator",
     price: "$100",
-    label: "per month",
     accent: "var(--gold-light)",
-    bg: "var(--card)",
     border: "var(--border-g)",
-    popular: false,
-    features: [
-      "Everything in Gardener",
-      "Masterclass archives",
-      "1:1 expert consultations",
-      "Rare seed priority",
-      "Annual garden tour",
-      "Club voting rights",
-    ],
+    features: ["Everything in Gardener", "Masterclass archives", "1:1 expert consultations", "Rare seed priority", "Annual garden tour"],
   },
 ];
 
@@ -59,13 +43,17 @@ export default function MembershipSection() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from(".tier-card", {
-        y: 60, opacity: 0, duration: 0.9, stagger: 0.14, ease: "power3.out",
-        scrollTrigger: { trigger: ref.current, start: "top 76%" },
-      });
       gsap.from(".mem-head", {
         y: 40, opacity: 0, duration: 0.9,
         scrollTrigger: { trigger: ref.current, start: "top 82%" },
+      });
+      gsap.from(".mem-featured", {
+        x: -55, opacity: 0, duration: 1.1, ease: "power3.out",
+        scrollTrigger: { trigger: ref.current, start: "top 76%" },
+      });
+      gsap.from(".mem-side", {
+        x: 55, opacity: 0, duration: 0.95, stagger: 0.14, ease: "power3.out",
+        scrollTrigger: { trigger: ref.current, start: "top 76%" },
       });
     }, ref);
     return () => ctx.revert();
@@ -74,96 +62,172 @@ export default function MembershipSection() {
   return (
     <section ref={ref} className="section-pad-lg" style={{ background: "var(--surface)" }}>
       <div className="container">
-        <div className="mem-head text-center mb-14">
-          <div className="eyebrow mb-4" style={{ justifyContent: "center" }}>Membership</div>
-          <h2
-            style={{
-              fontFamily: "var(--font-playfair, 'Playfair Display', serif)",
-              fontSize: "clamp(2rem, 4vw, 3.5rem)",
-              fontWeight: 800,
-              letterSpacing: "-0.015em",
-              color: "var(--cream)",
-              lineHeight: 1.1,
-              marginBottom: "1rem",
-            }}
-          >
-            Join Our Circle
-          </h2>
-          <p
-            className="t-accent"
-            style={{ color: "var(--muted)", maxWidth: "480px", margin: "0 auto" }}
-          >
-            Choose the membership that fits your passion for flowers.
-          </p>
-        </div>
 
-        <div className="grid md:grid-cols-3 gap-7 items-start">
-          {TIERS.map((tier) => (
-            <div
-              key={tier.name}
-              className="tier-card rounded-2xl overflow-hidden relative flex flex-col"
+        {/* Head */}
+        <div className="mem-head mb-14">
+          <div className="eyebrow mb-4">Membership</div>
+          <div
+            className="flex flex-col md:flex-row md:items-end justify-between gap-6"
+          >
+            <h2
               style={{
-                background: tier.bg,
-                border: `1px solid ${tier.border}`,
-                transform: tier.popular ? "scale(1.03)" : "scale(1)",
-                boxShadow: tier.popular ? `0 0 80px rgba(184,43,88,0.18)` : "none",
-                minHeight: "520px",
+                fontFamily: "var(--font-playfair, 'Playfair Display', serif)",
+                fontSize: "clamp(2rem, 4vw, 3.5rem)",
+                fontWeight: 800,
+                letterSpacing: "-0.015em",
+                color: "var(--cream)",
+                lineHeight: 1.08,
               }}
             >
-              {tier.popular && (
-                <div
-                  className="py-2 text-center text-white"
-                  style={{ background: "var(--rose)", fontSize: "9px", letterSpacing: "0.28em", fontFamily: "var(--font-sans)", fontWeight: 700 }}
+              Join Our Circle
+            </h2>
+            <p
+              className="t-accent"
+              style={{ color: "var(--muted)", maxWidth: "340px", textAlign: "right" }}
+            >
+              Choose the membership that fits your passion for flowers.
+            </p>
+          </div>
+        </div>
+
+        {/* Asymmetric grid — featured left (55%) + stacked right (45%) */}
+        <div
+          className="mem-grid grid gap-5 items-stretch"
+          style={{ gridTemplateColumns: "55fr 45fr" }}
+        >
+          {/* Featured "Gardener" tier */}
+          <div
+            className="mem-featured relative flex flex-col rounded-2xl overflow-hidden"
+            style={{
+              background: "var(--card)",
+              border: "1px solid var(--rose)",
+              boxShadow: "0 0 80px rgba(184,43,88,0.15), inset 0 1px 0 rgba(255,255,255,0.05)",
+            }}
+          >
+            {/* Popular badge bar */}
+            <div
+              className="py-2.5 text-center text-white"
+              style={{
+                background: "var(--rose)",
+                fontSize: "9px",
+                letterSpacing: "0.28em",
+                fontFamily: "var(--font-sans)",
+                fontWeight: 700,
+              }}
+            >
+              MOST POPULAR
+            </div>
+
+            <div style={{ padding: "clamp(28px, 4vw, 52px)", flex: 1, display: "flex", flexDirection: "column" }}>
+              <div
+                style={{
+                  fontFamily: "var(--font-sans)", fontSize: "11px",
+                  fontWeight: 700, letterSpacing: "0.2em",
+                  textTransform: "uppercase", color: "var(--rose-light)",
+                  marginBottom: "20px",
+                }}
+              >
+                {FEATURED_TIER.name}
+              </div>
+
+              <div style={{ display: "flex", alignItems: "baseline", gap: "10px", marginBottom: "8px" }}>
+                <span
+                  style={{
+                    fontFamily: "var(--font-playfair, 'Playfair Display', serif)",
+                    fontSize: "clamp(3rem, 5vw, 5rem)",
+                    fontWeight: 900, color: "var(--cream)",
+                    lineHeight: 1, letterSpacing: "-0.04em",
+                  }}
                 >
-                  MOST POPULAR
-                </div>
-              )}
-              <div style={{ padding: "36px 36px 40px", display: "flex", flexDirection: "column", flex: 1 }}>
-                <div style={{ fontFamily: "var(--font-sans)", fontSize: "11px", fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: tier.accent, marginBottom: "18px" }}>
+                  {FEATURED_TIER.price}
+                </span>
+                <span style={{ fontFamily: "var(--font-sans)", fontSize: "15px", color: "var(--muted)" }}>
+                  {FEATURED_TIER.label}
+                </span>
+              </div>
+              <p style={{ fontFamily: "var(--font-sans)", fontSize: "13px", color: "var(--dim)", marginBottom: "36px" }}>
+                Billed monthly · Cancel anytime
+              </p>
+
+              <div className="hr" style={{ marginBottom: "32px" }} />
+
+              <ul style={{ display: "flex", flexDirection: "column", gap: "16px", flex: 1, marginBottom: "40px" }}>
+                {FEATURED_TIER.features.map((f) => (
+                  <li key={f} style={{ display: "flex", alignItems: "flex-start", gap: "14px" }}>
+                    <Check size={15} style={{ color: "var(--rose-light)", flexShrink: 0, marginTop: "2px" }} />
+                    <span style={{ fontFamily: "var(--font-sans)", fontSize: "15px", color: "var(--muted)", lineHeight: 1.55 }}>{f}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <Link href="/join?tier=gardener" className="btn btn-primary w-full justify-center">
+                Get Started <ArrowRight size={14} />
+              </Link>
+            </div>
+          </div>
+
+          {/* Stacked side tiers */}
+          <div className="flex flex-col gap-5">
+            {SIDE_TIERS.map((tier) => (
+              <div
+                key={tier.name}
+                className="mem-side rounded-2xl flex flex-col flex-1"
+                style={{
+                  background: "var(--card)",
+                  border: `1px solid ${tier.border}`,
+                  padding: "clamp(22px, 3vw, 38px)",
+                }}
+              >
+                <div
+                  style={{
+                    fontFamily: "var(--font-sans)", fontSize: "11px",
+                    fontWeight: 700, letterSpacing: "0.2em",
+                    textTransform: "uppercase", color: tier.accent,
+                    marginBottom: "16px",
+                  }}
+                >
                   {tier.name}
                 </div>
-                <div style={{ display: "flex", alignItems: "baseline", gap: "8px", marginBottom: "8px" }}>
+
+                <div style={{ display: "flex", alignItems: "baseline", gap: "8px", marginBottom: "24px" }}>
                   <span
                     style={{
                       fontFamily: "var(--font-playfair, 'Playfair Display', serif)",
-                      fontSize: "3.6rem",
-                      fontWeight: 900,
-                      color: "var(--cream)",
-                      lineHeight: 1,
-                      letterSpacing: "-0.035em",
+                      fontSize: "clamp(2rem, 3vw, 3rem)",
+                      fontWeight: 900, color: "var(--cream)",
+                      lineHeight: 1, letterSpacing: "-0.03em",
                     }}
                   >
                     {tier.price}
                   </span>
                   {tier.price !== "Free" && (
-                    <span style={{ fontFamily: "var(--font-sans)", fontSize: "14px", color: "var(--muted)" }}>{tier.label}</span>
+                    <span style={{ fontFamily: "var(--font-sans)", fontSize: "13px", color: "var(--muted)" }}>/ mo</span>
                   )}
                 </div>
-                <p style={{ fontFamily: "var(--font-sans)", fontSize: "13px", color: "var(--dim)", marginBottom: "30px", lineHeight: 1.5 }}>
-                  {tier.label === "per month" ? "Billed monthly · Cancel anytime" : "Perfect for getting started"}
-                </p>
 
-                <div className="hr" style={{ marginBottom: "28px" }} />
-
-                <ul style={{ display: "flex", flexDirection: "column", gap: "14px", marginBottom: "36px", flex: 1 }}>
+                <ul style={{ display: "flex", flexDirection: "column", gap: "12px", flex: 1, marginBottom: "28px" }}>
                   {tier.features.map((f) => (
-                    <li key={f} style={{ display: "flex", alignItems: "flex-start", gap: "14px" }}>
-                      <Check size={15} style={{ color: tier.accent, flexShrink: 0, marginTop: "2px" }} />
-                      <span style={{ fontFamily: "var(--font-sans)", fontSize: "15px", color: "var(--muted)", lineHeight: 1.55 }}>{f}</span>
+                    <li key={f} style={{ display: "flex", alignItems: "flex-start", gap: "12px" }}>
+                      <Check size={13} style={{ color: tier.accent, flexShrink: 0, marginTop: "3px" }} />
+                      <span style={{ fontFamily: "var(--font-sans)", fontSize: "13.5px", color: "var(--muted)", lineHeight: 1.5 }}>{f}</span>
                     </li>
                   ))}
                 </ul>
 
-                <Link
-                  href={`/join?tier=${tier.name.toLowerCase()}`}
-                  className={tier.popular ? "btn btn-primary w-full justify-center" : "btn btn-outline w-full justify-center"}
-                >
-                  Get Started <ArrowRight size={14} />
+                <Link href={`/join?tier=${tier.name.toLowerCase()}`} className="btn btn-outline w-full justify-center" style={{ fontSize: "13px" }}>
+                  Choose {tier.name} <ArrowRight size={13} />
                 </Link>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
+
+        {/* Mobile: single column */}
+        <style>{`
+          @media (max-width: 767px) {
+            .mem-grid { grid-template-columns: 1fr !important; }
+          }
+        `}</style>
       </div>
     </section>
   );
