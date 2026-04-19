@@ -86,10 +86,10 @@ export default function BlogPage() {
           <Link
             href={`/blog/${featured.slug}`}
             className="grid lg:grid-cols-2 gap-0 rounded-2xl overflow-hidden"
-            style={{ background: "var(--card)", border: "1px solid var(--border-s)", textDecoration: "none", display: "grid" }}
+            style={{ background: "var(--card)", border: "1px solid var(--border-s)", textDecoration: "none" }}
           >
             {/* Image */}
-            <div style={{ height: "420px", overflow: "hidden", position: "relative" }}>
+            <div style={{ minHeight: "clamp(220px, 35vw, 420px)", overflow: "hidden", position: "relative" }}>
               <img
                 src={pick(pool, featured.type)}
                 alt={featured.title}

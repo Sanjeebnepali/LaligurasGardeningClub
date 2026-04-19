@@ -148,7 +148,7 @@ export default function ContactPage() {
               style={{
                 background: "var(--card)",
                 border: "1px solid var(--border-s)",
-                padding: "44px 36px",
+                padding: "clamp(24px, 4vw, 44px) clamp(20px, 3vw, 36px)",
                 gap: "0",
               }}
             >
@@ -276,7 +276,7 @@ export default function ContactPage() {
                 style={{
                   background: "var(--card)",
                   border: "1px solid var(--border-s)",
-                  padding: "44px 48px",
+                  padding: "clamp(24px, 4vw, 44px) clamp(20px, 4vw, 48px)",
                 }}
               >
                 <h2

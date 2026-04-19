@@ -130,7 +130,7 @@ export default function Hero() {
 
       {/* Main grid */}
       <div
-        className="relative"
+        className="hero-grid relative"
         style={{
           zIndex: 5,
           display: "grid",
@@ -144,7 +144,7 @@ export default function Hero() {
         {/* ── Left: Content ── */}
         <div
           className="flex flex-col justify-center"
-          style={{ paddingTop: "clamp(110px,14vh,160px)", paddingBottom: "100px", paddingRight: "clamp(20px, 3vw, 60px)" }}
+          style={{ paddingTop: "clamp(88px,14vh,160px)", paddingBottom: "clamp(60px,8vh,100px)", paddingRight: "clamp(0px, 3vw, 60px)" }}
         >
           {/* Eyebrow */}
           <div

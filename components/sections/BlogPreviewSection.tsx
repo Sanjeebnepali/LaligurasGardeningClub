@@ -96,7 +96,7 @@ export default function BlogPreviewSection() {
               }}
             >
               {/* Thumbnail */}
-              <div style={{ height: "210px", overflow: "hidden", position: "relative" }}>
+              <div style={{ aspectRatio: "16/9", overflow: "hidden", position: "relative" }}>
                 <img
                   src={pick(pool, post.type)}
                   alt={post.title}

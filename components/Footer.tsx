@@ -94,7 +94,7 @@ export default function Footer() {
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="your@email.com"
                     className="form-input flex-1"
-                    style={{ background: "rgba(255,255,255,0.12)", border: "1.5px solid rgba(255,255,255,0.25)", color: "white", minWidth: "220px" }}
+                    style={{ background: "rgba(255,255,255,0.12)", border: "1.5px solid rgba(255,255,255,0.25)", color: "white", minWidth: 0 }}
                     required
                   />
                   <button type="submit" className="btn btn-outline" style={{ color: "white", borderColor: "rgba(255,255,255,0.45)", whiteSpace: "nowrap", flexShrink: 0 }}>

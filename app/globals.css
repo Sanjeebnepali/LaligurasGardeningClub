@@ -567,11 +567,11 @@ select.form-input { cursor: pointer; }
   max-width: 100% !important;
 }
 
-/* ── Taste-skill redesign: mobile grid collapses ── */
+/* ── Responsive grid collapses ── */
 @media (max-width: 767px) {
   .plants-grid { grid-template-columns: 1fr !important; }
   .mem-grid    { grid-template-columns: 1fr !important; }
 }
 @media (max-width: 1023px) {
-  /* hero: hide right glass panel via display:none on the lg:flex div — handled by lg: class */
+  .hero-grid { grid-template-columns: 1fr !important; }
 }

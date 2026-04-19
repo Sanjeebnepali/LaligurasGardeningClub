@@ -250,7 +250,7 @@ export default function AboutPage() {
       {/* ── OUR STORY ── */}
       <section style={{ background: "var(--bg)", padding: "7rem 0" }}>
         <div className="container">
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "5rem", alignItems: "center" }} className="story-section">
+          <div style={{ display: "grid", gap: "3rem", alignItems: "center" }} className="story-section">
             <div className="story-text">
               <div className="eyebrow mb-5">Our Story</div>
               <h2 style={{ fontFamily: "var(--font-playfair,'Playfair Display',serif)", fontSize: "clamp(1.8rem,3.5vw,3rem)", fontWeight: 800, color: "var(--cream)", lineHeight: 1.1, marginBottom: "1.5rem" }}>
@@ -270,7 +270,7 @@ export default function AboutPage() {
             </div>
 
             <div className="story-img" style={{ position: "relative" }}>
-              <div style={{ borderRadius: 24, overflow: "hidden", height: 500, border: "1px solid var(--border)" }}>
+              <div style={{ borderRadius: 24, overflow: "hidden", height: "clamp(280px, 42vw, 500px)", border: "1px solid var(--border)" }}>
                 <img
                   src={IMG.rhododendron}
                   alt="Rhododendron in bloom — the Laliguras founding flower"
@@ -303,7 +303,7 @@ export default function AboutPage() {
             </h2>
           </div>
 
-          <div className="vals-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 20 }}>
+          <div className="vals-grid" style={{ display: "grid", gap: 20 }}>
             {VALUES.map(v => (
               <div
                 key={v.title}
@@ -341,7 +341,7 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <div className="team-grid" style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: 22 }}>
+          <div className="team-grid" style={{ display: "grid", gap: 22 }}>
             {TEAM.map(m => (
               <TeamCard key={m.name} member={m} imgSrc={pick(pool, m.type)} />
             ))}
@@ -414,17 +414,20 @@ export default function AboutPage() {
       </section>
 
       <style jsx global>{`
-        @media(max-width:1200px){
-          .team-grid { grid-template-columns: repeat(3,1fr) !important; }
+        .story-section  { grid-template-columns: 1fr; }
+        .vals-grid      { grid-template-columns: 1fr; }
+        .team-grid      { grid-template-columns: 1fr 1fr; }
+        @media(min-width:640px){
+          .vals-grid { grid-template-columns: repeat(2,1fr); }
+          .team-grid { grid-template-columns: repeat(2,1fr); }
         }
-        @media(max-width:960px){
-          .story-section { grid-template-columns: 1fr !important; gap: 3rem !important; }
-          .vals-grid     { grid-template-columns: repeat(2,1fr) !important; }
-          .team-grid     { grid-template-columns: repeat(2,1fr) !important; }
+        @media(min-width:900px){
+          .story-section { grid-template-columns: 1fr 1fr; gap: 5rem; }
+          .team-grid     { grid-template-columns: repeat(3,1fr); }
         }
-        @media(max-width:560px){
-          .vals-grid { grid-template-columns: 1fr !important; }
-          .team-grid { grid-template-columns: 1fr !important; }
+        @media(min-width:1024px){
+          .vals-grid { grid-template-columns: repeat(4,1fr); }
+          .team-grid { grid-template-columns: repeat(5,1fr); }
         }
       `}</style>
     </>
@@ -460,7 +463,7 @@ function TeamCard({ member, imgSrc }: { member: typeof TEAM[0]; imgSrc: string }
       style={{ background: "var(--card)", border: "1px solid var(--border-s)", borderRadius: 20, overflow: "hidden", display: "flex", flexDirection: "column", transition: "border-color 0.25s, box-shadow 0.25s" }}
     >
       {/* Photo area */}
-      <div style={{ position: "relative", height: 260, overflow: "hidden", flexShrink: 0, background: hasPhoto ? "#0a0520" : "var(--card)" }}>
+      <div style={{ position: "relative", height: "clamp(200px, 22vw, 260px)", overflow: "hidden", flexShrink: 0, background: hasPhoto ? "#0a0520" : "var(--card)" }}>
         {hasPhoto ? (
           <>
             {/* Real member photo */}
